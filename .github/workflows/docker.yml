@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main, develop]
 env:
-  IMAGE: ghcr.io/${{ github.repository }}
+  IMAGE: ghcr.io/paulovitor007/tutorial_romulo
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
