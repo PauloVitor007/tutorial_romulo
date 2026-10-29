@@ -1,0 +1,10 @@
+{
+  "name": "minha-api",
+  "version": "1.0.0",
+  "description": "Mini-API de exemplo para o tutorial Docker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
