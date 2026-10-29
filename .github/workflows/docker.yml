@@ -1,0 +1,33 @@
+name: CI/CD Docker
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build (e push apenas na main)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
